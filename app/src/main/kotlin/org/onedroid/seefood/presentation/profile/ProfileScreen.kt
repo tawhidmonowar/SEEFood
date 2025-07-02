@@ -1,4 +1,4 @@
-package org.onedroid.seefood.home
+package org.onedroid.seefood.presentation.profile
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import org.onedroid.seefood.app.auth.AuthViewModel
 
 @Composable
-fun HomeScreen(
+fun ProfileScreen(
     viewModel: AuthViewModel = AuthViewModel()
 ) {
     Column(

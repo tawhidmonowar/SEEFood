@@ -22,7 +22,7 @@ import org.onedroid.seefood.app.auth.AuthViewModel
 import org.onedroid.seefood.app.auth.ForgotPasswordScreen
 import org.onedroid.seefood.app.auth.LoginScreen
 import org.onedroid.seefood.app.auth.RegisterScreen
-import org.onedroid.seefood.home.HomeScreen
+import org.onedroid.seefood.presentation.home.HomeScreen
 import org.onedroid.seefood.ui.theme.SEEFoodTheme
 
 class App : ComponentActivity() {
