@@ -2,6 +2,7 @@ package org.onedroid.seefood.presentation.home.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -55,7 +56,7 @@ fun HomeTopAppBar(
 
             }) {
                 Icon(
-                    Icons.Outlined.Settings,
+                    Icons.Filled.Settings,
                     contentDescription = "stringResource(es.string.settings)"
                 )
             }
