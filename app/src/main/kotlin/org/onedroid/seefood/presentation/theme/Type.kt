@@ -1,4 +1,4 @@
-package org.onedroid.seefood.ui.theme
+package org.onedroid.seefood.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

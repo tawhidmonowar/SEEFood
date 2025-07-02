@@ -23,7 +23,7 @@ import org.onedroid.seefood.app.auth.ForgotPasswordScreen
 import org.onedroid.seefood.app.auth.LoginScreen
 import org.onedroid.seefood.app.auth.RegisterScreen
 import org.onedroid.seefood.presentation.home.HomeScreen
-import org.onedroid.seefood.ui.theme.SEEFoodTheme
+import org.onedroid.seefood.presentation.theme.SEEFoodTheme
 
 class App : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

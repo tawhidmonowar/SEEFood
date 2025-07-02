@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import org.koin.compose.viewmodel.koinViewModel
 import org.onedroid.seefood.app.navigation.components.BottomNavigationBar
 import org.onedroid.seefood.app.navigation.components.BottomNavigationItemsLists
 import org.onedroid.seefood.presentation.home.HomeScreen
@@ -21,7 +22,7 @@ import org.onedroid.seefood.presentation.profile.ProfileScreen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeNavigation(
-    viewModel: HomeViewModel = HomeViewModel()
+    viewModel: HomeViewModel = koinViewModel()
 ) {
     val homeNavController = rememberNavController()
     val navBackStackEntry by homeNavController.currentBackStackEntryAsState()

@@ -1,4 +1,4 @@
-package org.onedroid.seefood.ui.theme
+package org.onedroid.seefood.presentation.theme
 
 import android.app.Activity
 import android.os.Build

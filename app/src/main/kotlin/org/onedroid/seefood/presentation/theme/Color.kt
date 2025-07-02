@@ -1,4 +1,4 @@
-package org.onedroid.seefood.ui.theme
+package org.onedroid.seefood.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
