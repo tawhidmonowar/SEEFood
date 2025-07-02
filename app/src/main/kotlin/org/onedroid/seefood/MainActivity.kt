@@ -18,7 +18,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            SEEFoodTheme {
+            SEEFoodTheme (
+                darkTheme = false
+            ){
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
                         name = "Android",
@@ -41,7 +43,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    SEEFoodTheme {
+    SEEFoodTheme (
+        darkTheme = false
+    ){
         Greeting("Android")
     }
 }
