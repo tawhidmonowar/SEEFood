@@ -40,7 +40,6 @@ class RemoteRecipeDataSourceImpl(
         }
     }
 
-
     override suspend fun fetchCategoryList(): Result<CategoriesDto, DataError.Remote> {
         return safeCall {
             httpClient.get(

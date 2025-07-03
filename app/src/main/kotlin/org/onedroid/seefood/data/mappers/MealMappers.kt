@@ -1,9 +1,7 @@
 package org.onedroid.seefood.data.mappers
 
-import org.onedroid.seefood.data.dto.CategoriesDto
 import org.onedroid.seefood.data.dto.CategoryDto
 import org.onedroid.seefood.data.dto.MealDetailDto
-import org.onedroid.seefood.data.dto.MealDetailResDto
 import org.onedroid.seefood.data.dto.MealDto
 import org.onedroid.seefood.domain.Category
 import org.onedroid.seefood.domain.Meal

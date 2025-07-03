@@ -7,9 +7,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import org.onedroid.seefood.app.utils.UiText
 import org.onedroid.seefood.app.utils.onError
 import org.onedroid.seefood.app.utils.onSuccess
-import org.onedroid.seefood.domain.Meal
+import org.onedroid.seefood.data.mappers.toUiText
 import org.onedroid.seefood.domain.MealDetail
 import org.onedroid.seefood.domain.MealRepository
 
@@ -18,11 +19,17 @@ class DetailViewModel(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    companion object { const val MEAL_ID_KEY = "mealId"}
+    companion object {
+        const val MEAL_ID_KEY = "mealId"
+    }
+
     var mealDetail by mutableStateOf<MealDetail?>(null)
         private set
 
     var isSearchLoading by mutableStateOf(false)
+        private set
+
+    var error by mutableStateOf<UiText?>(null)
         private set
 
     init {
@@ -30,17 +37,19 @@ class DetailViewModel(
         if (mealId != null) {
             fetchMealDetails(mealId)
         } else {
-            println("Meal ID not found.")
+            error = UiText.DynamicString("Meal ID Not Found!")
         }
     }
 
-    private fun fetchMealDetails(mealId: String) = viewModelScope.launch {
+    fun fetchMealDetails(mealId: String) = viewModelScope.launch {
         isSearchLoading = true
         mealRepository.getMealById(mealId).onSuccess {
             mealDetail = it
             isSearchLoading = false
-        }.onError { error ->
+            error = null
+        }.onError {
             mealDetail = null
+            error = it.toUiText()
         }
     }
 }

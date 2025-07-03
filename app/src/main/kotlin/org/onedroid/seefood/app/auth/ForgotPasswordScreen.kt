@@ -11,22 +11,21 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import org.onedroid.seefood.R
 
 @Composable
 fun ForgotPasswordScreen(
@@ -34,13 +33,6 @@ fun ForgotPasswordScreen(
     viewModel: AuthViewModel = AuthViewModel()
 ) {
     var email by remember { mutableStateOf("") }
-
-    LaunchedEffect(viewModel.isPasswordResetSent) {
-        if (viewModel.isPasswordResetSent) {
-            // Todo, Could show a snackbar or dialog here
-        }
-    }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -49,13 +41,13 @@ fun ForgotPasswordScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Reset Password",
+            text = stringResource(R.string.reset_password),
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
         Text(
-            text = "Enter your email address and we'll send you a link to reset your password.",
+            text = stringResource(R.string.enter_your_email_address),
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.padding(bottom = 32.dp)
         )
@@ -63,7 +55,7 @@ fun ForgotPasswordScreen(
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email") },
+            label = { Text(stringResource(R.string.email)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             modifier = Modifier
                 .fillMaxWidth()
@@ -89,7 +81,7 @@ fun ForgotPasswordScreen(
                 )
             ) {
                 Text(
-                    text = "Password reset email sent! Check your inbox.",
+                    text = stringResource(R.string.password_reset_email_sent),
                     modifier = Modifier.padding(16.dp),
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
@@ -112,7 +104,7 @@ fun ForgotPasswordScreen(
                     color = MaterialTheme.colorScheme.onPrimary
                 )
             } else {
-                Text("Send Reset Email")
+                Text(stringResource(R.string.send_reset_email))
             }
         }
 
@@ -123,7 +115,7 @@ fun ForgotPasswordScreen(
             },
             enabled = !viewModel.isLoading
         ) {
-            Text("Back to Sign In")
+            Text(stringResource(R.string.back_to_sign_in))
         }
     }
 }

@@ -15,6 +15,7 @@ import org.onedroid.seefood.domain.MealRepository
 class MealRepositoryImpl(
     private val remoteRecipeDataSource: RemoteRecipeDataSource
 ) : MealRepository {
+
     override suspend fun getMeals(): Result<List<Meal>, DataError.Remote> {
         return remoteRecipeDataSource.fetchRandomMeals().map {
             it.meals?.toMealList() ?: emptyList()

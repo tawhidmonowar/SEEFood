@@ -18,7 +18,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -41,12 +41,6 @@ fun LoginScreen(
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
-    LaunchedEffect(viewModel.errorMessage) {
-        if (viewModel.errorMessage != null) {
-            // todo
-        }
-    }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -58,11 +52,11 @@ fun LoginScreen(
 
         Image(
             painter = painterResource(id = R.drawable.app_icon),
-            contentDescription = "App Logo"
+            contentDescription = stringResource(R.string.app_logo)
         )
 
         Text(
-            text = "Welcome Back!",
+            text = stringResource(R.string.welcome_back),
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.padding(bottom = 32.dp)
         )
@@ -71,7 +65,7 @@ fun LoginScreen(
             value = email,
             maxLines = 1,
             onValueChange = { email = it },
-            label = { Text("Email") },
+            label = { Text(stringResource(R.string.email)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             modifier = Modifier
                 .fillMaxWidth()
@@ -82,7 +76,7 @@ fun LoginScreen(
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") },
+            label = { Text(stringResource(R.string.password)) },
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             modifier = Modifier
@@ -115,7 +109,7 @@ fun LoginScreen(
                     color = MaterialTheme.colorScheme.onPrimary
                 )
             } else {
-                Text("Sign In")
+                Text(stringResource(R.string.sign_in))
             }
         }
 
@@ -123,17 +117,17 @@ fun LoginScreen(
             onClick = onNavigateToForgotPassword,
             enabled = !viewModel.isLoading
         ) {
-            Text("Forgot Password?")
+            Text(stringResource(R.string.forgot_password))
         }
 
         Spacer(modifier = Modifier.height(25.dp))
+        Text(stringResource(R.string.don_t_have_an_account))
 
-        Text("Don't have an account?")
         TextButton(
             onClick = onNavigateToRegister,
             enabled = !viewModel.isLoading
         ) {
-            Text("Sign Up")
+            Text(stringResource(R.string.sign_up))
         }
     }
 }

@@ -17,5 +17,5 @@ fun DataError.toUiText(): UiText {
         DataError.Remote.NO_DATA -> R.string.error_no_data
     }
 
-    return org.onedroid.seefood.app.utils.UiText.StringResourceId(stringRes)
+    return UiText.StringResourceId(stringRes)
 }

@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import org.onedroid.seefood.R
 import org.onedroid.seefood.app.auth.AuthViewModel
@@ -112,23 +113,22 @@ fun ProfileScreen(
         }
     }
 
-    // Confirmation AlertDialog
     if (showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
-            title = { Text("Delete Account") },
-            text = { Text("Are you sure you want to permanently delete your account? This action cannot be undone.") },
+            title = { Text(stringResource(R.string.delete_account)) },
+            text = { Text(stringResource(R.string.are_you_sure_you_want_to_delete_your_account)) },
             confirmButton = {
                 TextButton(onClick = {
                     showDeleteDialog = false
                     viewModel.deleteAccount()
                 }) {
-                    Text("Delete", color = MaterialTheme.colorScheme.error)
+                    Text(stringResource(R.string.delete), color = MaterialTheme.colorScheme.error)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDeleteDialog = false }) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.cancel))
                 }
             }
         )

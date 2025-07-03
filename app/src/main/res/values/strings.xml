@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">SEEFood</string>
     <string name="search">Search</string>
+
     <!--Error Messages-->
     <string name="error_disk_full">Oops, it seems like your disk is full.</string>
     <string name="error_unknown">Oops, something went wrong.</string>
@@ -10,5 +11,28 @@
     <string name="error_serialization">Couldn\'t parse data.</string>
     <string name="invalid_image">Invalid image</string>
     <string name="error_no_data">No Data</string>
+
+    <string name="password_reset_email_sent">Password reset email sent! Check your inbox.</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="enter_your_email_address">Enter your email address and we\'ll send you a link to reset your password.</string>
+    <string name="email">Email</string>
+    <string name="send_reset_email">Send Reset Email</string>
+    <string name="back_to_sign_in">Back to Sign In</string>
+    <string name="app_logo">App Logo</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="create_account">Create Account</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="passwords_don_t_match">Passwords don\'t match</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="are_you_sure_you_want_to_delete_your_account">Are you sure you want to permanently delete your account? This action cannot be undone.</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
 
 </resources>

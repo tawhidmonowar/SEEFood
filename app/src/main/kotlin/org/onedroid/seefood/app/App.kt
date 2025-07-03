@@ -7,22 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.google.firebase.FirebaseApp
 import org.onedroid.seefood.app.navigation.NavigationScreen
-import org.onedroid.seefood.app.auth.AuthViewModel
-import org.onedroid.seefood.app.auth.ForgotPasswordScreen
-import org.onedroid.seefood.app.auth.LoginScreen
-import org.onedroid.seefood.app.auth.RegisterScreen
-import org.onedroid.seefood.presentation.home.HomeScreen
 import org.onedroid.seefood.presentation.theme.SEEFoodTheme
 
 class App : ComponentActivity() {

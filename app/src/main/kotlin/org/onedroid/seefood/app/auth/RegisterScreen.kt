@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -51,11 +52,11 @@ fun RegisterScreen(
 
         Image(
             painter = painterResource(id = R.drawable.app_icon),
-            contentDescription = "App Logo"
+            contentDescription = stringResource(R.string.app_logo)
         )
 
         Text(
-            text = "Create Account",
+            text = stringResource(R.string.create_account),
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.padding(bottom = 32.dp)
         )
@@ -63,7 +64,7 @@ fun RegisterScreen(
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email") },
+            label = { Text(stringResource(R.string.email)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             modifier = Modifier
                 .fillMaxWidth()
@@ -74,7 +75,7 @@ fun RegisterScreen(
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") },
+            label = { Text(stringResource(R.string.password)) },
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             modifier = Modifier
@@ -86,7 +87,7 @@ fun RegisterScreen(
         OutlinedTextField(
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
-            label = { Text("Confirm Password") },
+            label = { Text(stringResource(R.string.confirm_password)) },
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             modifier = Modifier
@@ -98,7 +99,7 @@ fun RegisterScreen(
 
         if (password.isNotBlank() && confirmPassword.isNotBlank() && password != confirmPassword) {
             Text(
-                text = "Passwords don't match",
+                text = stringResource(R.string.passwords_don_t_match),
                 color = MaterialTheme.colorScheme.error,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
@@ -132,18 +133,18 @@ fun RegisterScreen(
                     color = MaterialTheme.colorScheme.onPrimary
                 )
             } else {
-                Text("Sign Up")
+                Text(stringResource(R.string.sign_up))
             }
         }
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        Text("Already have an account?")
+        Text(stringResource(R.string.already_have_an_account))
         TextButton(
             onClick = onNavigateToLogin,
             enabled = !viewModel.isLoading
         ) {
-            Text("Sign In")
+            Text(stringResource(R.string.sign_in))
         }
     }
 }

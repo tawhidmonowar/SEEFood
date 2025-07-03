@@ -62,6 +62,7 @@ import org.onedroid.seefood.app.utils.AppBarExpendedHeight
 import org.onedroid.seefood.data.mappers.toMeal
 import org.onedroid.seefood.domain.MealDetail
 import org.onedroid.seefood.presentation.favorite.FavoriteViewModel
+import org.onedroid.seefood.presentation.home.components.ErrorMsgView
 import kotlin.math.max
 import kotlin.math.min
 
@@ -142,69 +143,82 @@ fun DetailScreen(
             contentPadding = innerPadding,
             state = scrollState
         ) {
-            item {
-                Box(
-                    Modifier
-                        .height(imageHeight)
-                        .graphicsLayer { alpha = 1f - offsetProgress }
-                ) {
-                    AsyncImage(
-                        model = meal?.strMealThumb,
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
 
+            if (viewModel.error != null) {
+                item {
+                    ErrorMsgView(
+                        onRetryClick = {
+                            viewModel.fetchMealDetails(mealId!!)
+                        },
+                        errorMsg = viewModel.error!!
+                    )
+                }
+            } else {
+
+                item {
                     Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(
-                                Brush.verticalGradient(
-                                    listOf(Transparent, White),
-                                    startY = 0f,
-                                    endY = Float.POSITIVE_INFINITY
-                                )
-                            )
-                    )
+                        Modifier
+                            .height(imageHeight)
+                            .graphicsLayer { alpha = 1f - offsetProgress }
+                    ) {
+                        AsyncImage(
+                            model = meal?.strMealThumb,
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
+                        )
 
-                    if (!meal?.strYoutube.isNullOrEmpty()) {
-                        PlayButton(
+                        Box(
                             modifier = Modifier
-                                .align(Alignment.Center)
-                                .padding(16.dp),
-                            youtubeUrl = meal!!.strYoutube!!
+                                .fillMaxSize()
+                                .background(
+                                    Brush.verticalGradient(
+                                        listOf(Transparent, White),
+                                        startY = 0f,
+                                        endY = Float.POSITIVE_INFINITY
+                                    )
+                                )
+                        )
+
+                        if (!meal?.strYoutube.isNullOrEmpty()) {
+                            PlayButton(
+                                modifier = Modifier
+                                    .align(Alignment.Center)
+                                    .padding(16.dp),
+                                youtubeUrl = meal!!.strYoutube!!
+                            )
+                        }
+                    }
+
+                    Column(
+                        Modifier
+                            .fillMaxWidth()
+                            .height(AppBarCollapsedHeight),
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = meal?.strMeal.orEmpty(),
+                            fontSize = 26.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(horizontal = (16 + 28 * offsetProgress).dp)
+                                .scale(1f - 0.25f * offsetProgress)
                         )
                     }
                 }
 
-                Column(
-                    Modifier
-                        .fillMaxWidth()
-                        .height(AppBarCollapsedHeight),
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = meal?.strMeal.orEmpty(),
-                        fontSize = 26.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(horizontal = (16 + 28 * offsetProgress).dp)
-                            .scale(1f - 0.25f * offsetProgress)
-                    )
-                }
-            }
-
-            item {
-                InfoSection(meal)
-            }
-
-            item {
-                DescriptionSection(meal?.strInstructions.orEmpty())
-            }
-
-            if (!meal?.strYoutube.isNullOrEmpty()) {
                 item {
-                    YoutubeButton(meal!!.strYoutube!!)
+                    InfoSection(meal)
+                }
+
+                item {
+                    DescriptionSection(meal?.strInstructions.orEmpty())
+                }
+
+                if (!meal?.strYoutube.isNullOrEmpty()) {
+                    item {
+                        YoutubeButton(meal!!.strYoutube!!)
+                    }
                 }
             }
         }
