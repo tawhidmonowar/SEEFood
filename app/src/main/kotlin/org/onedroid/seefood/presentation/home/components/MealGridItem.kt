@@ -38,7 +38,6 @@ fun MealGridItem(
         modifier = modifier
             .width(260.dp) // Fixed width like TrendingItemCard
             .height(220.dp) // Fixed height like TrendingItemCard
-            .clip(RoundedCornerShape(12.dp)) // Clip for the ripple effect to match card shape
             .clickable(onClick = onClick), // Apply clickable to the Card
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)

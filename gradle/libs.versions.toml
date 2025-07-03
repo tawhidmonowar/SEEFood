@@ -1,4 +1,5 @@
 [versions]
+accompanistInsetsVersion = "0.17.0"
 agp = "8.7.3"
 kotlin = "2.0.0"
 coreKtx = "1.16.0"
@@ -19,6 +20,7 @@ coil3 = "3.0.0-rc02"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+google-accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanistInsetsVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

@@ -38,14 +38,16 @@ import org.onedroid.seefood.domain.Meal
 @Composable
 fun TrendingItemCard(
     meal: Meal,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier
             .width(260.dp) // Fixed width for each card
-            .height(220.dp),
+            .height(220.dp)
+            .clickable(onClick = onClick),
         shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
     ) {
         Column {
             Box(

@@ -55,18 +55,13 @@ fun HomeNavigation(
                         snackbarHostState.showSnackbar("Not implemented yet due to time constraints.")
                     }
                 },
-                onSettingsClick = {
-                    scope.launch {
-                        snackbarHostState.showSnackbar("Not implemented yet due to time constraints.")
-                    }
-                },
                 searchResultContent = {
                     MealSearchResult(
                         isSearchLoading = viewModel.isSearchLoading,
                         searchErrorMsg = viewModel.searchErrorMsg,
                         searchResult = viewModel.searchResult,
-                        onMealClick = {
-                            viewModel.toggleSearch()
+                        onMealClick = {meal->
+                            rootNavController.navigate("detail_screen" + "/${meal.idMeal}")
                         }
                     )
                 },

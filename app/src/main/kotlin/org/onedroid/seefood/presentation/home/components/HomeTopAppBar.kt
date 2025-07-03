@@ -28,7 +28,6 @@ fun HomeTopAppBar(
     isSearchActive: Boolean,
     toggleSearch: () -> Unit,
     onAboutClick: () -> Unit,
-    onSettingsClick: () -> Unit,
     searchResultContent: @Composable () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior
 ) {

@@ -1,4 +1,5 @@
 package org.onedroid.seefood.app.utils
+import androidx.compose.ui.unit.dp
 
 const val SEARCH_TRIGGER_CHAR = 3
 const val USER_AGENT = "SEEFood/1.0 (tawhidmonowar@gmail.com)"
@@ -11,3 +12,6 @@ val categories : List<String> = listOf(
 )
 
 val randomCategory = categories.random()
+
+val AppBarCollapsedHeight = 100.dp
+val AppBarExpendedHeight = 400.dp

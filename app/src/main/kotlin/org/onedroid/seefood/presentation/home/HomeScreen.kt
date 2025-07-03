@@ -48,7 +48,10 @@ fun HomeScreen(
                     items(viewModel.meals.size) { index ->
                         TrendingItemCard(
                             meal = viewModel.meals[index],
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 12.dp)
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 12.dp),
+                            onClick = {
+                                rootNavController.navigate("detail_screen" + "/${viewModel.meals[index].idMeal}")
+                            }
                         )
                     }
                 }

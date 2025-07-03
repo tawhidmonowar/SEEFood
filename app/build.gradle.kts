@@ -67,5 +67,6 @@ dependencies {
     implementation(libs.koin.compose)
     implementation(libs.koin.compose.viewmodel)
     implementation(libs.bundles.coil)
+    implementation (libs.google.accompanist.insets)
     api(libs.koin.core)
 }
