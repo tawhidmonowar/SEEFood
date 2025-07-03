@@ -59,7 +59,6 @@ fun MealList(
     ) {
         items(
             items = meals,
-            key = { it.idMeal }
         ) { meal ->
             MealListItem(
                 meal = meal,
@@ -128,12 +127,14 @@ private fun MealListItem(
                     .weight(1f),
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = meal.strMeal,
-                    style = MaterialTheme.typography.titleMedium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
+                meal.strMeal?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.titleMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
                 Text(
                     text = "Meal ID: ${meal.idMeal}",
                     style = MaterialTheme.typography.titleMedium,

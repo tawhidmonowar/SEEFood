@@ -91,3 +91,11 @@ fun MealDetailDto.toMailDetail(): MealDetail {
         dateModified = dateModified
     )
 }
+
+fun MealDetail.toMeal(): Meal {
+    return Meal(
+        idMeal = idMeal,
+        strMeal = strMeal,
+        strMealThumb = strMealThumb
+    )
+}

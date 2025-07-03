@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import org.koin.compose.viewmodel.koinViewModel
 import org.onedroid.seefood.presentation.home.components.CategoryItem
 import org.onedroid.seefood.presentation.home.components.Feed
 import org.onedroid.seefood.presentation.home.components.FeedTitle
@@ -86,7 +85,7 @@ fun HomeScreen(
 
         }
 
-        if(viewModel.selectedCategoryMeals.isNotEmpty()) {
+        if (viewModel.selectedCategoryMeals.isNotEmpty()) {
             items(
                 count = viewModel.selectedCategoryMeals.size,
             ) { index ->

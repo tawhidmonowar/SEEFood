@@ -19,10 +19,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 import org.onedroid.seefood.app.navigation.components.BottomNavigationBar
 import org.onedroid.seefood.app.navigation.components.BottomNavigationItemsLists
+import org.onedroid.seefood.presentation.favorite.FavoriteScreen
 import org.onedroid.seefood.presentation.home.HomeScreen
 import org.onedroid.seefood.presentation.home.HomeViewModel
 import org.onedroid.seefood.presentation.home.components.HomeTopAppBar
@@ -32,6 +34,7 @@ import org.onedroid.seefood.presentation.profile.ProfileScreen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeNavigation(
+    userId: String? = null,
     viewModel: HomeViewModel = koinViewModel(),
     rootNavController: NavController
 ) {
@@ -60,7 +63,7 @@ fun HomeNavigation(
                         isSearchLoading = viewModel.isSearchLoading,
                         searchErrorMsg = viewModel.searchErrorMsg,
                         searchResult = viewModel.searchResult,
-                        onMealClick = {meal->
+                        onMealClick = { meal ->
                             rootNavController.navigate("detail_screen" + "/${meal.idMeal}")
                         }
                     )
@@ -106,7 +109,12 @@ fun HomeNavigation(
                 ProfileScreen()
             }
             composable("favorite") {
-
+                FavoriteScreen(
+                    userId = userId,
+                    onClick = {mealId ->
+                        rootNavController.navigate("detail_screen" + "/${mealId}")
+                    }
+                )
             }
         }
     }

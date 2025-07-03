@@ -68,14 +68,16 @@ fun MealGridItem(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Text(
-                    text = meal.strMeal,
-                    style = MaterialTheme.typography.titleMedium, // Match TrendingItemCard's text style
-                    fontWeight = FontWeight.Medium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f) // Allows text to take available space
-                )
+                meal.strMeal?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.titleMedium, // Match TrendingItemCard's text style
+                        fontWeight = FontWeight.Medium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f) // Allows text to take available space
+                    )
+                }
             }
         }
     }

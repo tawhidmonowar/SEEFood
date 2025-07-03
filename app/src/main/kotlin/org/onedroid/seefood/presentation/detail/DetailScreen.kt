@@ -1,5 +1,10 @@
 package org.onedroid.seefood.presentation.detail
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,6 +17,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -21,6 +27,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
@@ -39,6 +46,8 @@ import com.google.accompanist.insets.LocalWindowInsets
 import org.koin.compose.viewmodel.koinViewModel
 import org.onedroid.seefood.app.utils.AppBarCollapsedHeight
 import org.onedroid.seefood.app.utils.AppBarExpendedHeight
+import org.onedroid.seefood.data.mappers.toMeal
+import org.onedroid.seefood.presentation.favorite.FavoriteViewModel
 import kotlin.math.max
 import kotlin.math.min
 
@@ -46,9 +55,21 @@ import kotlin.math.min
 @Composable
 fun DetailScreen(
     mealId: String? = null,
+    userId: String? = null,
     rootNavController: NavController,
-    viewModel: DetailViewModel = koinViewModel()
+    viewModel: DetailViewModel = koinViewModel(),
+    favoriteViewModel: FavoriteViewModel = koinViewModel()
 ) {
+
+    val isFavorite = favoriteViewModel.isMealFavorite
+
+    LaunchedEffect(mealId) {
+        if (mealId != null) {
+            if (userId != null) {
+                favoriteViewModel.checkIfFavorite(mealId, userId)
+            }
+        }
+    }
 
     val scrollState = rememberLazyListState()
     val imageHeight = AppBarExpendedHeight - AppBarCollapsedHeight
@@ -85,12 +106,30 @@ fun DetailScreen(
                 },
                 actions = {
                     IconButton(onClick = {
-
+                        viewModel.mealDetail?.let {
+                            if (userId != null) {
+                                favoriteViewModel.toggleFavorite(
+                                    viewModel.mealDetail!!.toMeal(),
+                                    userId
+                                )
+                            }
+                        }
                     }) {
-                        Icon(
-                            Icons.Outlined.FavoriteBorder, contentDescription = "Favorite",
-                            tint = MaterialTheme.colorScheme.primary
-                        )
+                        AnimatedContent(
+                            targetState = isFavorite,
+                            transitionSpec = {
+                                fadeIn(animationSpec = tween(400)) togetherWith fadeOut(
+                                    animationSpec = tween(300)
+                                )
+                            },
+                            label = "FavoriteIconTransition"
+                        ) { targetIsFavorite ->
+                            Icon(
+                                imageVector = if (targetIsFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                                contentDescription = if (targetIsFavorite) "Remove from favorites" else "Add to favorites",
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
                     }
                 }
             )

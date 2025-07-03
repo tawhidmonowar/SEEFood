@@ -6,6 +6,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.FirebaseAuth
 import org.onedroid.seefood.app.auth.AuthViewModel
 import org.onedroid.seefood.app.auth.ForgotPasswordScreen
 import org.onedroid.seefood.app.auth.LoginScreen
@@ -15,10 +16,11 @@ import org.onedroid.seefood.presentation.detail.DetailScreen
 @Composable
 fun NavigationScreen() {
     val rootNavController = rememberNavController()
-    val viewModel: AuthViewModel = viewModel()
+    val authViewModel: AuthViewModel = viewModel()
+    val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-    LaunchedEffect(viewModel.isAuthenticated) {
-        if (viewModel.isAuthenticated) {
+    LaunchedEffect(authViewModel.isAuthenticated) {
+        if (authViewModel.isAuthenticated) {
             rootNavController.navigate("home") {
                 popUpTo(0)
                 launchSingleTop = true
@@ -33,7 +35,7 @@ fun NavigationScreen() {
 
     NavHost(
         navController = rootNavController,
-        startDestination = if (viewModel.isAuthenticated) "home" else "login",
+        startDestination = if (authViewModel.isAuthenticated) "home" else "login",
     ) {
         composable("login") {
             LoginScreen(
@@ -43,7 +45,7 @@ fun NavigationScreen() {
                 onNavigateToForgotPassword = {
                     rootNavController.navigate("forgot_password")
                 },
-                viewModel = viewModel
+                viewModel = authViewModel
             )
         }
 
@@ -52,7 +54,7 @@ fun NavigationScreen() {
                 onNavigateToLogin = {
                     rootNavController.navigateUp()
                 },
-                viewModel = viewModel
+                viewModel = authViewModel
             )
         }
 
@@ -61,11 +63,12 @@ fun NavigationScreen() {
                 onNavigateBack = {
                     rootNavController.navigateUp()
                 },
-                viewModel = viewModel
+                viewModel = authViewModel
             )
         }
         composable("home") {
             HomeNavigation(
+                userId = userId,
                 rootNavController = rootNavController
             )
         }
@@ -73,6 +76,7 @@ fun NavigationScreen() {
             val mealId = navBackStack.arguments?.getString("mealId")
             DetailScreen(
                 mealId = mealId,
+                userId = userId,
                 rootNavController = rootNavController
             )
         }
