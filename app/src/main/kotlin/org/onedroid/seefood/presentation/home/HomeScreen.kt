@@ -21,7 +21,7 @@ import org.onedroid.seefood.presentation.home.components.title
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = koinViewModel(),
+    viewModel: HomeViewModel,
 ) {
     val gridState = rememberLazyGridState()
 

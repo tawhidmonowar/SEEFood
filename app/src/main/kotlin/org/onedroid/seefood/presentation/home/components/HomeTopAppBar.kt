@@ -27,6 +27,7 @@ fun HomeTopAppBar(
     isSearchActive: Boolean,
     toggleSearch: () -> Unit,
     onAboutClick: () -> Unit,
+    onSettingsClick: () -> Unit,
     searchResultContent: @Composable () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior
 ) {
@@ -53,7 +54,7 @@ fun HomeTopAppBar(
                 Icon(Icons.Default.Search, contentDescription = "stringResource(Res.string.search)")
             }
             IconButton(onClick = {
-
+                onSettingsClick()
             }) {
                 Icon(
                     Icons.Filled.Settings,

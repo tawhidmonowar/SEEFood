@@ -2,16 +2,22 @@ package org.onedroid.seefood.app.navigation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 import org.onedroid.seefood.app.navigation.components.BottomNavigationBar
@@ -31,6 +37,8 @@ fun HomeNavigation(
     val navBackStackEntry by homeNavController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     Scaffold(
         topBar = {
@@ -40,7 +48,16 @@ fun HomeNavigation(
                 updateSearchQuery = viewModel::updateSearchQuery,
                 isSearchActive = viewModel.isSearchActive,
                 toggleSearch = viewModel::toggleSearch,
-                onAboutClick = {},
+                onAboutClick = {
+                    scope.launch {
+                        snackbarHostState.showSnackbar("Not implemented yet due to time constraints.")
+                    }
+                },
+                onSettingsClick = {
+                    scope.launch {
+                        snackbarHostState.showSnackbar("Not implemented yet due to time constraints.")
+                    }
+                },
                 searchResultContent = {
                     MealSearchResult(
                         isSearchLoading = viewModel.isSearchLoading,
@@ -66,6 +83,15 @@ fun HomeNavigation(
                     }
                 }
             )
+        },
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState) { data ->
+                Snackbar(
+                    snackbarData = data,
+                    containerColor = Color.White,
+                    contentColor = MaterialTheme.colorScheme.primary
+                )
+            }
         }
     ) { innerPadding ->
         NavHost(
@@ -74,7 +100,7 @@ fun HomeNavigation(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable("home_screen") {
-                HomeScreen()
+                HomeScreen(viewModel = viewModel)
             }
             composable("profile") {
                 ProfileScreen()
