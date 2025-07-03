@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import org.koin.compose.viewmodel.koinViewModel
 import org.onedroid.seefood.presentation.home.components.CategoryItem
 import org.onedroid.seefood.presentation.home.components.Feed
@@ -22,9 +23,9 @@ import org.onedroid.seefood.presentation.home.components.title
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel,
+    rootNavController: NavController
 ) {
     val gridState = rememberLazyGridState()
-
     Feed(
         modifier = Modifier.fillMaxSize(),
         columns = GridCells.Adaptive(150.dp),
@@ -90,7 +91,7 @@ fun HomeScreen(
                     modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp),
                     meal = viewModel.selectedCategoryMeals[index],
                     onClick = {
-
+                        rootNavController.navigate("detail_screen" + "/${viewModel.selectedCategoryMeals[index].idMeal}")
                     }
                 )
             }

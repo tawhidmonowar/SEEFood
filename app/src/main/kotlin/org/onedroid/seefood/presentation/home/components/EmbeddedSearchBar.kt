@@ -108,7 +108,8 @@ private fun EmbeddedSearchBarInputField(
             }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                    contentDescription = null
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         },
@@ -133,6 +134,7 @@ private fun EmbeddedSearchBarInputField(
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "stringResource(Res.string.clear_data)",
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
             }

@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -31,7 +32,8 @@ import org.onedroid.seefood.presentation.profile.ProfileScreen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeNavigation(
-    viewModel: HomeViewModel = koinViewModel()
+    viewModel: HomeViewModel = koinViewModel(),
+    rootNavController: NavController
 ) {
     val homeNavController = rememberNavController()
     val navBackStackEntry by homeNavController.currentBackStackEntryAsState()
@@ -100,7 +102,10 @@ fun HomeNavigation(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable("home_screen") {
-                HomeScreen(viewModel = viewModel)
+                HomeScreen(
+                    viewModel = viewModel,
+                    rootNavController = rootNavController
+                )
             }
             composable("profile") {
                 ProfileScreen()

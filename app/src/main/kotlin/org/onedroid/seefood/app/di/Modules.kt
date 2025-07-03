@@ -12,6 +12,7 @@ import org.onedroid.seefood.data.network.RemoteRecipeDataSourceImpl
 import org.koin.core.module.dsl.viewModelOf
 import org.onedroid.seefood.data.repository.MealRepositoryImpl
 import org.onedroid.seefood.domain.MealRepository
+import org.onedroid.seefood.presentation.detail.DetailViewModel
 import org.onedroid.seefood.presentation.home.HomeViewModel
 
 val AndroidKoinModules: Module
@@ -21,4 +22,5 @@ val AndroidKoinModules: Module
         singleOf(::RemoteRecipeDataSourceImpl).bind<RemoteRecipeDataSource>()
         singleOf(::MealRepositoryImpl).bind<MealRepository>()
         viewModelOf(::HomeViewModel)
+        viewModelOf(::DetailViewModel)
     }

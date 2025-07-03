@@ -8,6 +8,7 @@ import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -44,23 +45,24 @@ fun HomeTopAppBar(
             IconButton(onClick = {
                 onAboutClick()
             }) {
-                Icon(Icons.Outlined.Info, contentDescription = "stringResource(Res.string.info)")
+                Icon(
+                    Icons.Outlined.Info,
+                    contentDescription = "stringResource(Res.string.info)",
+                    tint = MaterialTheme.colorScheme.primary
+                )
             }
         },
         actions = {
             IconButton(onClick = {
                 toggleSearch()
             }) {
-                Icon(Icons.Default.Search, contentDescription = "stringResource(Res.string.search)")
-            }
-            IconButton(onClick = {
-                onSettingsClick()
-            }) {
                 Icon(
-                    Icons.Filled.Settings,
-                    contentDescription = "stringResource(es.string.settings)"
+                    Icons.Default.Search,
+                    contentDescription = "stringResource(Res.string.search)",
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
+
         },
         scrollBehavior = scrollBehavior
     )

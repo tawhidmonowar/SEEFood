@@ -11,6 +11,7 @@ import org.onedroid.seefood.app.utils.USER_AGENT
 import org.onedroid.seefood.app.utils.randomCategory
 import org.onedroid.seefood.app.utils.safeCall
 import org.onedroid.seefood.data.dto.CategoriesDto
+import org.onedroid.seefood.data.dto.MealDetailResDto
 import org.onedroid.seefood.data.dto.MealsDto
 
 class RemoteRecipeDataSourceImpl(
@@ -57,6 +58,17 @@ class RemoteRecipeDataSourceImpl(
             ) {
                 header("User-Agent", USER_AGENT)
                 parameter("i", query)
+            }
+        }
+    }
+
+    override suspend fun fetchMealById(id: String): Result<MealDetailResDto, DataError.Remote> {
+        return safeCall {
+            httpClient.get(
+                urlString = "https://www.themealdb.com/api/json/v1/1/lookup.php"
+            ) {
+                header("User-Agent", USER_AGENT)
+                parameter("i", id)
             }
         }
     }

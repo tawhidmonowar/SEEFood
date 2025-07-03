@@ -8,4 +8,5 @@ interface MealRepository {
     suspend fun getMealsByCategory(category: String): Result<List<Meal>, DataError.Remote>
     suspend fun getCategories(): Result<List<Category>, DataError.Remote>
     suspend fun searchMeals(query: String): Result<List<Meal>, DataError.Remote>
+    suspend fun getMealById(id: String): Result<MealDetail, DataError.Remote>
 }

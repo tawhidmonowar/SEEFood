@@ -10,6 +10,7 @@ import org.onedroid.seefood.app.auth.AuthViewModel
 import org.onedroid.seefood.app.auth.ForgotPasswordScreen
 import org.onedroid.seefood.app.auth.LoginScreen
 import org.onedroid.seefood.app.auth.RegisterScreen
+import org.onedroid.seefood.presentation.detail.DetailScreen
 
 @Composable
 fun NavigationScreen() {
@@ -64,7 +65,16 @@ fun NavigationScreen() {
             )
         }
         composable("home") {
-            HomeNavigation()
+            HomeNavigation(
+                rootNavController = rootNavController
+            )
+        }
+        composable("detail_screen" + "/{mealId}") { navBackStack ->
+            val mealId = navBackStack.arguments?.getString("mealId")
+            DetailScreen(
+                mealId = mealId,
+                rootNavController = rootNavController
+            )
         }
     }
 }
