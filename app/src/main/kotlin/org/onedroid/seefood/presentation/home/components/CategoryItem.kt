@@ -14,10 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import org.onedroid.seefood.domain.Category
 
 @Composable
 fun CategoryItem(
-    category: String,
+    category: Category,
     isSelected: Boolean,
     onCategorySelected: (String) -> Unit
 ) {
@@ -31,12 +32,12 @@ fun CategoryItem(
                 color = backgroundColor
             )
             .clip(RoundedCornerShape(24.dp))
-            .clickable { onCategorySelected(category) }
+            .clickable { onCategorySelected(category.strCategory) }
             .padding(horizontal = 16.dp, vertical = 8.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = category,
+            text = category.strCategory,
             color = textColor,
             style = MaterialTheme.typography.bodyLarge
         )

@@ -9,5 +9,6 @@
     <string name="error_too_many_requests">Your quota seems to be exceeded.</string>
     <string name="error_serialization">Couldn\'t parse data.</string>
     <string name="invalid_image">Invalid image</string>
+    <string name="error_no_data">No Data</string>
 
 </resources>

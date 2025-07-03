@@ -14,6 +14,7 @@ fun DataError.toUiText(): UiText {
         DataError.Remote.SERVER -> R.string.error_unknown
         DataError.Remote.SERIALIZATION -> R.string.error_serialization
         DataError.Remote.UNKNOWN -> R.string.error_unknown
+        DataError.Remote.NO_DATA -> R.string.error_no_data
     }
 
     return org.onedroid.seefood.app.utils.UiText.StringResourceId(stringRes)

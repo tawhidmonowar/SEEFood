@@ -6,11 +6,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.koin.compose.viewmodel.koinViewModel
@@ -67,37 +64,36 @@ fun HomeScreen(
         }
 
         single {
-            val categories =
-                listOf("Salad", "Breakfast", "Appetizer", "Noodle", "Lunch", "Dinner", "Dessert")
-            var selectedCategory by remember { mutableStateOf("Salad") }
-
             LazyRow(
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
                     .padding(bottom = 10.dp),
             ) {
-                items(categories.size) { index ->
+                items(viewModel.categories) { category ->
                     CategoryItem(
-                        category = categories[index],
-                        isSelected = selectedCategory == categories[index],
-                        onCategorySelected = { selectedCategory = it }
+                        category = category,
+                        isSelected = viewModel.selectedCategory == category.strCategory,
+                        onCategorySelected = { selected ->
+                            viewModel.onCategorySelected(selected)
+                        }
                     )
                 }
             }
+
         }
 
+        if(viewModel.selectedCategoryMeals.isNotEmpty()) {
+            items(
+                count = viewModel.selectedCategoryMeals.size,
+            ) { index ->
+                MealGridItem(
+                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp),
+                    meal = viewModel.selectedCategoryMeals[index],
+                    onClick = {
 
-        items(
-            count = viewModel.meals.size,
-            key = { viewModel.meals[it].idMeal }
-        ) { index ->
-            MealGridItem(
-                modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp),
-                meal = viewModel.meals[index],
-                onClick = {
-
-                }
-            )
+                    }
+                )
+            }
         }
     }
 }

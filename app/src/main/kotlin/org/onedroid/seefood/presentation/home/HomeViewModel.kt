@@ -16,6 +16,7 @@ import org.onedroid.seefood.app.utils.UiText
 import org.onedroid.seefood.app.utils.onError
 import org.onedroid.seefood.app.utils.onSuccess
 import org.onedroid.seefood.data.mappers.toUiText
+import org.onedroid.seefood.domain.Category
 import org.onedroid.seefood.domain.Meal
 import org.onedroid.seefood.domain.MealRepository
 
@@ -41,6 +42,7 @@ class HomeViewModel(
     fun updateSearchQuery(query: String) {
         searchQuery = query
     }
+
     var errorMsg by mutableStateOf<UiText?>(null)
         private set
 
@@ -53,10 +55,29 @@ class HomeViewModel(
     var searchResult by mutableStateOf<List<Meal>>(emptyList())
         private set
 
+    var categories by mutableStateOf<List<Category>>(emptyList())
+        private set
+
+    var selectedCategory by mutableStateOf("Beef")
+        private set
+
+    var selectedCategoryMeals by mutableStateOf<List<Meal>>(emptyList())
+        private set
+
+
     init {
         getMeals()
+        getCategories()
+        getMealsByCategory(selectedCategory)
         if (cachedMeals.isEmpty()) {
             observeSearchQuery()
+        }
+    }
+
+    fun onCategorySelected(category: String) {
+        if (selectedCategory != category) {
+            selectedCategory = category
+            getMealsByCategory(category)
         }
     }
 
@@ -65,10 +86,18 @@ class HomeViewModel(
         mealRepository.getMeals().onSuccess {
             meals = it
             isSearchLoading = false
-        }.onError {error ->
+        }.onError { error ->
             isSearchLoading = false
             meals = emptyList()
             errorMsg = error.toUiText()
+        }
+    }
+
+    private fun getCategories() = viewModelScope.launch {
+        mealRepository.getCategories().onSuccess {
+            categories = it
+        }.onError { error ->
+            categories = emptyList()
         }
     }
 
@@ -101,6 +130,15 @@ class HomeViewModel(
             searchResult = emptyList()
             isSearchLoading = false
             searchErrorMsg = error.toUiText()
+        }
+    }
+
+    private fun getMealsByCategory(category: String) = viewModelScope.launch {
+        mealRepository.getMealsByCategory(category).onSuccess {
+            selectedCategoryMeals = it
+        }.onError {
+            selectedCategoryMeals = emptyList()
+            // Optionally handle the error
         }
     }
 }

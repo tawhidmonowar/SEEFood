@@ -3,6 +3,7 @@ package org.onedroid.seefood.data.repository
 import org.onedroid.seefood.app.utils.DataError
 import org.onedroid.seefood.app.utils.Result
 import org.onedroid.seefood.app.utils.map
+import org.onedroid.seefood.data.mappers.toCategoryList
 import org.onedroid.seefood.data.mappers.toMealList
 import org.onedroid.seefood.data.network.RemoteRecipeDataSource
 import org.onedroid.seefood.domain.Category
@@ -18,8 +19,16 @@ class MealRepositoryImpl(
         }
     }
 
+    override suspend fun getMealsByCategory(category: String): Result<List<Meal>, DataError.Remote> {
+        return remoteRecipeDataSource.fetchMealsByCategory(category = category).map {
+            it.meals?.toMealList() ?: emptyList()
+        }
+    }
+
     override suspend fun getCategories(): Result<List<Category>, DataError.Remote> {
-        TODO("Not yet implemented")
+        return remoteRecipeDataSource.fetchCategoryList().map {
+            it.categories?.toCategoryList() ?: emptyList()
+        }
     }
 
     override suspend fun searchMeals(query: String): Result<List<Meal>, DataError.Remote> {
