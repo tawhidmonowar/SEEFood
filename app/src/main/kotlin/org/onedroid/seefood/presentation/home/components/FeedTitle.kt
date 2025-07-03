@@ -50,7 +50,11 @@ fun FeedTitle(
                 .clip(
                     RoundedCornerShape(80)
                 )
-                .clickable { /* Handle See all click */ }
+                .clickable {
+                    if (onClick != null) {
+                        onClick()
+                    }
+                }
                 .padding(8.dp)) {
                 Text(
                     text = text,

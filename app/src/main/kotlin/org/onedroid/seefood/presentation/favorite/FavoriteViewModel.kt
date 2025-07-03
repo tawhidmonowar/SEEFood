@@ -17,6 +17,9 @@ class FavoriteViewModel(
     var isMealFavorite by mutableStateOf(false)
         private set
 
+    var isMealFavoriteLoading by mutableStateOf(false)
+        private set
+
     fun checkIfFavorite(mealId: String, userId: String) {
         repository.isMealFavorite(mealId, userId) { exists ->
             isMealFavorite = exists
@@ -24,8 +27,10 @@ class FavoriteViewModel(
     }
 
     fun loadFavorites(userId: String) {
+        isMealFavoriteLoading = true
         repository.getFavoriteMeals(userId) {
             favoriteMeals = it
+            isMealFavoriteLoading = false
         }
     }
 

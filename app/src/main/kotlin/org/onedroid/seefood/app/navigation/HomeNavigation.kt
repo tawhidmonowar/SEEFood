@@ -19,7 +19,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 import org.onedroid.seefood.app.navigation.components.BottomNavigationBar
@@ -102,6 +101,11 @@ fun HomeNavigation(
             composable("home_screen") {
                 HomeScreen(
                     viewModel = viewModel,
+                    onSeeAllClick = {
+                        scope.launch {
+                            snackbarHostState.showSnackbar("Not implemented yet due to time constraints.")
+                        }
+                    },
                     rootNavController = rootNavController
                 )
             }
@@ -111,7 +115,7 @@ fun HomeNavigation(
             composable("favorite") {
                 FavoriteScreen(
                     userId = userId,
-                    onClick = {mealId ->
+                    onClick = { mealId ->
                         rootNavController.navigate("detail_screen" + "/${mealId}")
                     }
                 )

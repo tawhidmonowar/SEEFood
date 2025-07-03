@@ -32,6 +32,9 @@ class HomeViewModel(
     var isSearchLoading by mutableStateOf(false)
         private set
 
+    var isMealLoading by mutableStateOf(false)
+        private set
+
     private val cachedMeals = emptyList<Meal>()
     private var searchJob: Job? = null
 
@@ -43,7 +46,7 @@ class HomeViewModel(
         searchQuery = query
     }
 
-    var errorMsg by mutableStateOf<UiText?>(null)
+    var errorMsgMeal by mutableStateOf<UiText?>(null)
         private set
 
     var searchErrorMsg by mutableStateOf<UiText?>(null)
@@ -81,15 +84,15 @@ class HomeViewModel(
         }
     }
 
-    private fun getMeals() = viewModelScope.launch {
-        isSearchLoading = true
+    fun getMeals() = viewModelScope.launch {
+        isMealLoading = true
         mealRepository.getMeals().onSuccess {
             meals = it
-            isSearchLoading = false
+            isMealLoading = false
         }.onError { error ->
-            isSearchLoading = false
+            isMealLoading = false
             meals = emptyList()
-            errorMsg = error.toUiText()
+            errorMsgMeal = error.toUiText()
         }
     }
 
