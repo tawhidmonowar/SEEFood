@@ -9,12 +9,12 @@ import org.onedroid.seefood.domain.Category
 import org.onedroid.seefood.domain.Meal
 import org.onedroid.seefood.domain.MealRepository
 
-class MealRepositoryImpl (
+class MealRepositoryImpl(
     private val remoteRecipeDataSource: RemoteRecipeDataSource
-): MealRepository {
+) : MealRepository {
     override suspend fun getMeals(): Result<List<Meal>, DataError.Remote> {
         return remoteRecipeDataSource.fetchRandomMeals().map {
-            it.meals.toMealList()
+            it.meals?.toMealList() ?: emptyList()
         }
     }
 
@@ -22,4 +22,9 @@ class MealRepositoryImpl (
         TODO("Not yet implemented")
     }
 
+    override suspend fun searchMeals(query: String): Result<List<Meal>, DataError.Remote> {
+        return remoteRecipeDataSource.searchMeals(query = query).map {
+            it.meals?.toMealList() ?: emptyList()
+        }
+    }
 }

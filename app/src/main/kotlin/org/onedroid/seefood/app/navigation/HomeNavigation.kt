@@ -11,12 +11,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 import org.onedroid.seefood.app.navigation.components.BottomNavigationBar
 import org.onedroid.seefood.app.navigation.components.BottomNavigationItemsLists
 import org.onedroid.seefood.presentation.home.HomeScreen
 import org.onedroid.seefood.presentation.home.HomeViewModel
 import org.onedroid.seefood.presentation.home.components.HomeTopAppBar
+import org.onedroid.seefood.presentation.home.components.MealSearchResult
 import org.onedroid.seefood.presentation.profile.ProfileScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,7 +41,16 @@ fun HomeNavigation(
                 isSearchActive = viewModel.isSearchActive,
                 toggleSearch = viewModel::toggleSearch,
                 onAboutClick = {},
-                searchResultContent = {},
+                searchResultContent = {
+                    MealSearchResult(
+                        isSearchLoading = viewModel.isSearchLoading,
+                        searchErrorMsg = viewModel.searchErrorMsg,
+                        searchResult = viewModel.searchResult,
+                        onMealClick = {
+                            viewModel.toggleSearch()
+                        }
+                    )
+                },
                 scrollBehavior = scrollBehavior,
             )
         },

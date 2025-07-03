@@ -38,7 +38,7 @@ fun EmbeddedSearchBar(
     onBack: () -> Unit,
     isActive: Boolean,
     content: @Composable () -> Unit,
-    placeholder: String = "Search",
+    placeholder: String = "Search by ingredients",
 ) {
     val focusRequester = remember { FocusRequester() }
     LaunchedEffect(isActive) {

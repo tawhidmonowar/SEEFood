@@ -3,9 +3,15 @@ package org.onedroid.seefood.presentation.home
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
+import org.onedroid.seefood.app.utils.SEARCH_TRIGGER_CHAR
 import org.onedroid.seefood.app.utils.UiText
 import org.onedroid.seefood.app.utils.onError
 import org.onedroid.seefood.app.utils.onSuccess
@@ -25,6 +31,9 @@ class HomeViewModel(
     var isSearchLoading by mutableStateOf(false)
         private set
 
+    private val cachedMeals = emptyList<Meal>()
+    private var searchJob: Job? = null
+
     fun toggleSearch() {
         isSearchActive = !isSearchActive
     }
@@ -35,12 +44,21 @@ class HomeViewModel(
     var errorMsg by mutableStateOf<UiText?>(null)
         private set
 
-    init {
-        getMeals()
-    }
+    var searchErrorMsg by mutableStateOf<UiText?>(null)
+        private set
 
     var meals by mutableStateOf<List<Meal>>(emptyList())
         private set
+
+    var searchResult by mutableStateOf<List<Meal>>(emptyList())
+        private set
+
+    init {
+        getMeals()
+        if (cachedMeals.isEmpty()) {
+            observeSearchQuery()
+        }
+    }
 
     private fun getMeals() = viewModelScope.launch {
         isSearchLoading = true
@@ -51,6 +69,38 @@ class HomeViewModel(
             isSearchLoading = false
             meals = emptyList()
             errorMsg = error.toUiText()
+        }
+    }
+
+    @OptIn(FlowPreview::class)
+    private fun observeSearchQuery() {
+        viewModelScope.launch {
+            snapshotFlow { searchQuery }.distinctUntilChanged().debounce(500L).collect { query ->
+                when {
+                    query.isBlank() -> {
+                        searchErrorMsg = null
+                        searchResult = cachedMeals
+                    }
+
+                    query.length >= SEARCH_TRIGGER_CHAR -> {
+                        searchJob?.cancel()
+                        searchJob = searchMeals(query)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun searchMeals(query: String) = viewModelScope.launch {
+        isSearchLoading = true
+        mealRepository.searchMeals(query).onSuccess {
+            isSearchLoading = false
+            searchErrorMsg = null
+            searchResult = it
+        }.onError { error ->
+            searchResult = emptyList()
+            isSearchLoading = false
+            searchErrorMsg = error.toUiText()
         }
     }
 }

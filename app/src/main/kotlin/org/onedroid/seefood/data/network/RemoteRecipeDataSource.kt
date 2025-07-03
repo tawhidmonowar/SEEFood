@@ -6,4 +6,5 @@ import org.onedroid.seefood.data.dto.MealsDto
 
 interface RemoteRecipeDataSource {
     suspend fun fetchRandomMeals(): Result<MealsDto, DataError.Remote>
+    suspend fun searchMeals(query: String): Result<MealsDto, DataError.Remote>
 }
