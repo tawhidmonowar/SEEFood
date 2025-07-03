@@ -49,4 +49,18 @@ class AuthRepository {
     fun signOut() {
         auth.signOut()
     }
+
+    suspend fun deleteAccount(): Result<Unit> {
+        val user = auth.currentUser
+        return if (user != null) {
+            try {
+                user.delete().await()
+                Result.success(Unit)
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        } else {
+            Result.failure(Exception("No user is currently signed in."))
+        }
+    }
 }

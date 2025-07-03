@@ -105,7 +105,7 @@ fun HomeNavigation(
             composable("profile") {
                 ProfileScreen()
             }
-            composable("save") {
+            composable("favorite") {
 
             }
         }

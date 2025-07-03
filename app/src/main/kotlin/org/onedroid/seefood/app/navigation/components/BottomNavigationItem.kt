@@ -15,9 +15,9 @@ val BottomNavigationItemsLists = listOf(
         route = "home_screen"
     ),
     BottomNavigationItem(
-        icon = R.drawable.ic_bookmark,
-        title = "Save Meals",
-        route = "save"
+        icon = R.drawable.ic_favorite,
+        title = "Favorite Meals",
+        route = "favorite"
     ),
     BottomNavigationItem(
         icon = R.drawable.ic_person,

@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 class AuthViewModel(
-    private val authRepository: AuthRepository = AuthRepository()
+    val authRepository: AuthRepository = AuthRepository()
 ) : ViewModel() {
 
     var isLoading by mutableStateOf(false)
@@ -84,5 +84,19 @@ class AuthViewModel(
 
     fun clearPasswordResetState() {
         isPasswordResetSent = false
+    }
+
+    fun deleteAccount() {
+        viewModelScope.launch {
+            isLoading = true
+            errorMessage = null
+
+            authRepository.deleteAccount().onSuccess {
+                isLoading = false
+            }.onFailure { exception ->
+                isLoading = false
+                errorMessage = exception.message
+            }
+        }
     }
 }
