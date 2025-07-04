@@ -1,6 +1,12 @@
-# SEEFood
+<div align="center">
+<p><img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="128" alt="WebCapture"></p>
+<h3 align="center">SEEFood</h3>
+  <p align="center">
+<b>SEEFood</b> is an Android application built with <b>Jetpack Compose</b>, <b></b>Firebase</b>, and <b>TheMealDB API</b> that helps you explore, search, and save your favorite meals with a seamless and beautiful UI.
+  
+  </p>
+</div>
 
-**SEEFood** is a modern Android application built with **Jetpack Compose**, **Firebase**, and **TheMealDB API** that helps you explore, search, and save your favorite meals with a seamless and beautiful UI.
 
 ---
 
