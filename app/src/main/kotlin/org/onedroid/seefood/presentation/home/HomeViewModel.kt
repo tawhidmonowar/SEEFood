@@ -141,7 +141,6 @@ class HomeViewModel(
             selectedCategoryMeals = it
         }.onError {
             selectedCategoryMeals = emptyList()
-            // Optionally handle the error
         }
     }
 }
