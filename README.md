@@ -44,8 +44,8 @@ Authentication flow using Firebase email/password system
 ### Home Screen
 Browse trending, popular, and category-based meals.
 <p float="left">
-  <img src="screenshots/4.jpg" width="32%" />
   <img src="screenshots/5.jpg" width="32%" />
+  <img src="screenshots/4.jpg" width="32%" />
   <img src="screenshots/6.jpg" width="32%" />
 </p>
 
